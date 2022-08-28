@@ -46,10 +46,10 @@ contract Payment {
     }
 
     function createPlan(
+        string memory name,
         address token,
         uint256 amount,
-        uint256 frequency,
-        string memory name
+        uint256 frequency
     ) external {
         require(token != address(0), "address cannot be null address");
         require(amount > 0, "amount needs to be > 0");
