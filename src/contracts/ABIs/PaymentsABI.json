@@ -15,6 +15,11 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
 				"internalType": "address",
 				"name": "token",
 				"type": "address"
@@ -28,11 +33,6 @@
 				"internalType": "uint256",
 				"name": "frequency",
 				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
 			}
 		],
 		"name": "createPlan",
