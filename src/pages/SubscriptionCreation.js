@@ -1,7 +1,7 @@
-import Layout from "../layout";
+
 import React, { useState } from "react";
 import GetContract from "../hooks/GetContract";
-import SubABI from "../contract/ABIs/PaymentsABI.json";
+import SubABI from "../contracts/ABIs/PaymentsABI.json";
 
 function SubscriptionCreation() {
   const [name, setName] = useState("");
@@ -49,7 +49,7 @@ function SubscriptionCreation() {
   };
 
   return (
-    <Layout>
+  
       <div className="bg-gradient p-1 rounded-md h-fit w-fit mx-auto mt-[20vh] w-[50vw]">
         <div className="bg-zinc-800 flex rounded-md p-10 text-black flex-col gap-5">
           <h1 className="text-gradient text-2xl">Add Service</h1>
@@ -120,7 +120,7 @@ function SubscriptionCreation() {
           </button>
         </div>
       </div>
-    </Layout>
+  
   );
 }
 
