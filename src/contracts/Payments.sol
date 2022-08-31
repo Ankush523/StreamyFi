@@ -1,33 +1,25 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
-
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Payment {
     uint256 public nextPlanId;
-    uint256 public pid;
     struct Plan {
-        string name;
-        uint256 pid;
         address merchant;
         address token;
         uint256 amount;
         uint256 frequency;
     }
-
     struct Subscription {
         address subscriber;
         uint256 start;
         uint256 nextPayment;
     }
-
     mapping(uint256 => Plan) public plans;
     mapping(address => mapping(uint256 => Subscription)) public subscriptions;
 
     event PlanCreated(address merchant, uint256 planId, uint256 date);
-
     event SubscriptionCreated(address subscriber, uint256 planId, uint256 date);
-
     event SubscriptionCancelled(
         address subscriber,
         uint256 planId,
@@ -41,12 +33,7 @@ contract Payment {
         uint256 date
     );
 
-    function receivePid() external view returns (uint256) {
-        return pid;
-    }
-
     function createPlan(
-        string memory name,
         address token,
         uint256 amount,
         uint256 frequency
@@ -54,21 +41,14 @@ contract Payment {
         require(token != address(0), "address cannot be null address");
         require(amount > 0, "amount needs to be > 0");
         require(frequency > 0, "frequency needs to be > 0");
-        plans[nextPlanId] = Plan(
-            name,
-            nextPlanId,
-            msg.sender,
-            token,
-            amount,
-            frequency
-        );
+        plans[nextPlanId] = Plan(msg.sender, token, amount, frequency);
         nextPlanId++;
     }
 
     function subscribe(uint256 planId) external {
         IERC20 token = IERC20(plans[planId].token);
         Plan storage plan = plans[planId];
-        require(plan.merchant != address(0), "this plan does not exist");
+        require(planId < nextPlanId, "this plan does not exist");
 
         token.transferFrom(msg.sender, plan.merchant, plan.amount);
         emit PaymentSent(
@@ -87,16 +67,9 @@ contract Payment {
         emit SubscriptionCreated(msg.sender, planId, block.timestamp);
     }
 
-    function subscriptionlist(uint256 _pid) public view returns (Plan memory) {
-        return plans[_pid];
-    }
-
     function cancel(uint256 planId) external {
         Subscription storage subscription = subscriptions[msg.sender][planId];
-        require(
-            subscription.subscriber != address(0),
-            "this subscription does not exist"
-        );
+        require(planId < nextPlanId, "this subscription does not exist");
         delete subscriptions[msg.sender][planId];
         emit SubscriptionCancelled(msg.sender, planId, block.timestamp);
     }
@@ -105,10 +78,7 @@ contract Payment {
         Subscription storage subscription = subscriptions[subscriber][planId];
         Plan storage plan = plans[planId];
         IERC20 token = IERC20(plan.token);
-        require(
-            subscription.subscriber != address(0),
-            "this subscription does not exist"
-        );
+        require(planId < nextPlanId, "this subscription does not exist");
         require(block.timestamp > subscription.nextPayment, "not due yet");
 
         token.transferFrom(subscriber, plan.merchant, plan.amount);
