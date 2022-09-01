@@ -1,5 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
+
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Payment {
@@ -68,7 +69,6 @@ contract Payment {
     }
 
     function cancel(uint256 planId) external {
-        Subscription storage subscription = subscriptions[msg.sender][planId];
         require(planId < nextPlanId, "this subscription does not exist");
         delete subscriptions[msg.sender][planId];
         emit SubscriptionCancelled(msg.sender, planId, block.timestamp);

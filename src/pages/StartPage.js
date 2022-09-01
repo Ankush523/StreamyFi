@@ -11,7 +11,7 @@ const StartPage = () => {
             User
           </button>
         </a>
-        <a href="/subscription-list">
+        <a href="/plancreate">
           <button className="text-[20px] w-[fit-content] h-[fit-content] rounded-md hover:bg-pink-500 p-[8px] bg-purple-700 text-white">
             Merchant
           </button>
