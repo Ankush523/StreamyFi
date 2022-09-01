@@ -1,18 +1,20 @@
 import "./App.css";
-import { BrowserRouter, Router, Route } from "react-router-dom";
+import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
 import SubscriptionCreation from "./pages/SubscriptionCreation";
 import SubscriptionList from "./pages/SubscriptionList";
 import Home from "./pages/Home";
+import StartPage from "./pages/StartPage";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Router>
-          <Route path="/" component={Home} />
-          <Route path="/Subscription-creation" component={SubscriptionCreation}/>
-          <Route path="/Subscription-list" component={SubscriptionList} />
-        </Router>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/subscription-creation" element={<SubscriptionCreation/>}/>
+          <Route path="/subscription-list" element={<SubscriptionList/>} />
+          <Route path="startpage" element={<StartPage/>}/>
+        </Routes>
       </BrowserRouter>
     </div>
   );
