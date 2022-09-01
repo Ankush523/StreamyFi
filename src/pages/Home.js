@@ -6,7 +6,7 @@ const Home = () => {
       {/* <img src={Bg} className="w-[100vw] h-[100vh]" /> */}
       <div className="p-[220px]">
         <label className="text-white text-[50px] font-montserrat">
-          Welcome to the World's first Payment Streaming Gateway
+          Stream your Recurring Payments
         </label>
         <div className="flex flex-row justify-around pt-[20px]">
           <a href="/startpage"><button className="text-[20px] w-[fit-content] h-[fit-content] rounded-md hover:bg-pink-500 p-[8px] bg-purple-700 text-white">Let's Get Started</button></a>

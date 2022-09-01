@@ -4,6 +4,7 @@ import SubscriptionCreation from "./pages/SubscriptionCreation";
 import SubscriptionList from "./pages/SubscriptionList";
 import Home from "./pages/Home";
 import StartPage from "./pages/StartPage";
+import PlanCreation from "./pages/PlanCreation";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/subscription-creation" element={<SubscriptionCreation/>}/>
           <Route path="/subscription-list" element={<SubscriptionList/>} />
-          <Route path="startpage" element={<StartPage/>}/>
+          <Route path="/startpage" element={<StartPage/>}/>
+          <Route path="/plancreate" element={<PlanCreation/>}/>
         </Routes>
       </BrowserRouter>
     </div>
